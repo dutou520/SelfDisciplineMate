@@ -1,0 +1,74 @@
+<Window x:Class="BlockNotifier.BlockWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="自律守护"
+        SizeToContent="Height"
+        Height="400"
+        Width="400"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Topmost="True"
+        Background="#FF6B6B">
+
+    <Grid>
+        <Border Background="White"
+                CornerRadius="12"
+                Margin="20"
+                Padding="24">
+            <StackPanel VerticalAlignment="Center">
+                <!-- 图标 -->
+                <TextBlock Text="🛡️"
+                           FontSize="48"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,16"/>
+
+                <!-- 标题 -->
+                <TextBlock Text="【自律守护】权限不足"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="#212121"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,12"/>
+
+                <!-- 应用名称 -->
+                <TextBlock x:Name="AppNameText"
+                           FontSize="16"
+                           Foreground="#FF6B6B"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,8"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"/>
+
+                <!-- 提示信息 -->
+                <TextBlock x:Name="MessageText"
+                           FontSize="13"
+                           Foreground="#757575"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,20"/>
+
+                <!-- 按钮 -->
+                <Button Content="我知道了"
+                        Click="CloseButton_Click"
+                        Background="#FF6B6B"
+                        Foreground="White"
+                        Padding="24,10"
+                        BorderThickness="0"
+                        FontSize="14"
+                        Cursor="Hand"
+                        HorizontalAlignment="Center">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    CornerRadius="6"
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
