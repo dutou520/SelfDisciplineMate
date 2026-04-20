@@ -4,6 +4,8 @@ using System;
 using System.Windows.Controls;
 using SelfDisciplineMate.ViewModels;
 using SelfDisciplineMate.Models;
+using SelfDisciplineMate.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SelfDisciplineMate
 {
@@ -12,10 +14,56 @@ namespace SelfDisciplineMate
         public MainWindow()
         {
             InitializeComponent();
+            LoadWindowPosition();
+        }
+
+        private void LoadWindowPosition()
+        {
+            var settingsService = App.Services.GetRequiredService<SettingsService>();
+            var settings = settingsService.Settings;
+
+            if (settings.WindowLeft != -1)
+            {
+                this.WindowStartupLocation = WindowStartupLocation.Manual;
+                this.Left = settings.WindowLeft;
+                this.Top = settings.WindowTop;
+                this.Width = settings.WindowWidth;
+                this.Height = settings.WindowHeight;
+            }
+        }
+
+        private void SaveWindowPosition()
+        {
+            if (this.WindowState == WindowState.Normal)
+            {
+                var settingsService = App.Services.GetRequiredService<SettingsService>();
+                var settings = settingsService.Settings;
+
+                settings.WindowLeft = this.Left;
+                settings.WindowTop = this.Top;
+                settings.WindowWidth = this.ActualWidth;
+                settings.WindowHeight = this.ActualHeight;
+
+                settingsService.SaveSettings();
+            }
+        }
+
+        protected override void OnLocationChanged(EventArgs e)
+        {
+            base.OnLocationChanged(e);
+            if (this.IsLoaded) SaveWindowPosition();
+        }
+
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            base.OnRenderSizeChanged(sizeInfo);
+            if (this.IsLoaded) SaveWindowPosition();
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
+            SaveWindowPosition();
+
             // 最小化到托盘而不是关闭
             if (DataContext is MainViewModel vm && vm is not null)
             {

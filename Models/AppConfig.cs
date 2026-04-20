@@ -14,6 +14,10 @@ namespace SelfDisciplineMate.Models
         public bool MinimizeToTray { get; set; } = true;
         public bool PlaySound { get; set; } = true;
         public DateTime LastDailyReset { get; set; } = DateTime.MinValue;
+        public double WindowTop { get; set; } = -1;
+        public double WindowLeft { get; set; } = -1;
+        public double WindowWidth { get; set; } = 450;
+        public double WindowHeight { get; set; } = 700;
     }
 
     public class AppPathMapping
